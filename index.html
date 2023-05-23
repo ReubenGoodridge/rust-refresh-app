@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redis WebAssembly Example</title>
+  <script type="module">
+    import init, { get_redis_key, increment_redis_key } from './pkg/final_rust.js';
+
+    async function runExample() {
+      await init();
+
+      // Get Redis key value
+      const getValueButton = document.getElementById('get-value-button');
+      const valueResult = document.getElementById('value-result');
+
+      getValueButton.addEventListener('click', async () => {
+        const host = document.getElementById('host-input').value;
+        const port = document.getElementById('port-input').value;
+        const key = document.getElementById('key-input').value;
+
+        try {
+          const value = await get_redis_key(host, port, key);
+          valueResult.textContent = value;
+        } catch (error) {
+          console.error(error);
+          valueResult.textContent = 'Error retrieving value';
+        }
+      });
+
+      // Increment Redis key value
+      const incrementButton = document.getElementById('increment-button');
+      const incrementResult = document.getElementById('increment-result');
+
+      incrementButton.addEventListener('click', async () => {
+        const host = document.getElementById('host-input').value;
+        const port = document.getElementById('port-input').value;
+        const key = document.getElementById('key-input').value;
+
+        try {
+          await increment_redis_key(host, port, key);
+          incrementResult.textContent = 'Key incremented successfully';
+        } catch (error) {
+          console.error(error);
+          incrementResult.textContent = 'Error incrementing key';
+        }
+      });
+    }
+
+    runExample();
+  </script>
+</head>
+<body>
+  <h1>Redis WebAssembly Example</h1>
+
+  <div>
+    <label for="host-input">Redis Host:</label>
+    <input type="text" id="host-input" value="localhost">
+  </div>
+
+  <div>
+    <label for="port-input">Redis Port:</label>
+    <input type="text" id="port-input" value="6379">
+  </div>
+
+  <div>
+    <label for="key-input">Redis Key:</label>
+    <input type="text" id="key-input" value="mykey">
+  </div>
+
+  <button id="get-value-button">Get Value</button>
+  <p id="value-result"></p>
+
+  <button id="increment-button">Increment Key</button>
+  <p id="increment-result"></p>
+</body>
+</html>
