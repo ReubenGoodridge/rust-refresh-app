@@ -1,6 +1,6 @@
-# Redis WebAssembly Example
+# Redis WebAssembly
 
-This project demonstrates how to use Redis with WebAssembly (Wasm) using Rust.
+This project demonstrates how to use Redis with WebAssembly (Wasm) using Rust. Unfortunately, this code won't work natively due to the wasm sandbox having tight security. I am currently working on a fix for this but not guarantee on the release date!
 
 ## Prerequisites
 
