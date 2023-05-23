@@ -27,6 +27,7 @@ Follow these steps to run the code:
    ```bash
    wasm-pack build --target web
 4. Start the Redis server. You can refer to the Redis documentation for instructions on starting the server based on your platform.
+5. Run the index.html code with a server like live preview in VS Code or http-server from python.
 
 ## Code Explanation
 
